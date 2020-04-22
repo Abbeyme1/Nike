@@ -1,0 +1,184 @@
+.nike {
+	text-transform: uppercase;
+	color: black;
+	font-family: fantasy;
+	font-size: 190px;
+	font-weight: 900;
+	padding-left: 3.5%;
+	width: 50px;
+}
+
+.quo {
+	font-size: 80px;
+	padding-left: 0.3%;
+/*	color: greenyellow;*/
+	color: skyblue;
+/*	border:1px solid blue;*/
+	font-weight: 500;
+	font-family: fantasy;
+	/*	font-family:sans-serif;*/
+	width: 5%;
+}
+
+#top-nav {
+	float: right;
+	text-decoration: none;
+	font-size: 60px;
+
+}
+
+#top-nav {
+	display: inline-flex;
+	list-style: none;
+	padding-top: 1%;
+}
+
+#top-nav a {
+	text-decoration: none;
+
+}
+
+#top-nav li a {
+	padding-left: 200px;
+	color: black;
+/*	font-family: fantasy;*/
+	font-family:sans-serif;
+	text-transform: uppercase;
+	font-weight: 500;
+	padding-bottom: 10px;
+	width: 10px;
+}
+
+#top-nav i {
+	color: skyblue;
+}
+
+.search {
+	height: 70px;
+	width: 400px;
+	transform: translateX(-150px);
+	color: white;
+	font-size: 50px;
+	background-color: black;
+	border-radius: 50px;
+	margin-left: 300px;
+}
+
+.dropdown a {
+	margin-left: 100px;
+}
+
+.shopping {
+	padding-right: 150px;
+}
+
+.aboutUs {
+	color: black;
+/*	font-family: fantasy;*/
+	padding-right: 120px;
+	font-family:sans-serif;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+
+.aboutUs i {
+	padding-left: 20px;
+	transform: translateY(-8px);
+}
+
+/*,,,,,,,*/
+.top-nav {
+	display: relative;
+	display: inline-block;
+	list-style: none;
+}
+
+#top-nav ul {
+	display: inline-block;
+	list-style: none;
+}
+
+#top-nav ul li a {
+	width: 120px;
+	margin: 15px;
+	padding: 15px;
+}
+
+#top-nav .top {
+	position: relative;
+}
+
+#top-nav .top::before {
+	content: '';
+	display: inline-flex;
+	height: 15px;
+	/*	width: 50%;*/
+	width: 0%;
+	margin-top: 80px;
+	border-radius: 20px;
+	background-color: skyblue;
+	
+	
+	position: absolute;
+	top: 0;
+	transition: all ease-in-out 300ms;
+}
+
+#top-nav .top:hover::before {
+	width: 100%;
+	/*	transition: all ease-in-out 400ms;*/
+}
+#top-nav .dropdown-blue  a{
+	padding: 0;
+	color: white;
+}
+
+#top-nav .dropdown  a{
+/*	margin-right:1%;*/
+	padding: 0;
+	color: black;
+/*	margin: 0;*/
+}
+
+
+/*blue valaa*/
+
+
+
+
+.dropdown-toggle{
+	width: 100%;
+/*	background-color: red;*/
+}
+.dropdown-toggle li{
+	margin-top:15%;
+	
+}
+.dropdown-toggle li{
+	display: none;
+}
+
+
+
+#top-nav .top:hover .dropdown-toggle  li{
+	display: block;
+	background-color: red;
+	margin-top: 15px;
+	margin-left: -15px;
+	
+}
+
+
+
+/*
+
+sort*/
+
+.sort-topnav{
+	margin-top: -01.6%;
+	margin-right: 10rem;
+	margin-top: -0.6%;
+    margin-right: 10%;
+	margin-left: 70%;
+	width: 1600px;
+}

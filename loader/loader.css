@@ -1,0 +1,79 @@
+body{
+/*  background:black;*/
+/*	background-image: url(loading-bg.png);*/
+}
+.main
+{
+  height:300px;
+  width:300px;
+  margin:0 auto;
+/*  border:1px solid white;*/
+  margin:5% auto;
+	background-image: url(loading-bgg.png);
+}
+.ob{
+/*  background-image: url(main-shoes-w.png);*/
+	
+/*  background:white;*/
+/*  height:50px;*/
+/*  width:50px;*/
+  margin:50% 50%;
+/*  border-radius:100px;*/
+  transform-origin:center;
+/*   transform:
+            rotate(50deg); */
+  animation:ho 2s infinite alternate-reverse linear;
+  
+}
+@keyframes ho{
+  0%{
+    transform: translate(-120px, -10px)
+      rotate(60deg);
+   
+  }
+  25%{
+    transform: translate(0px, 22px)
+      rotate(40deg);
+/*    background-color:yellow;*/
+  }
+  50%{
+    transform:translate(80px, 26px)
+      rotate(0deg);
+  }
+  60%{
+    transform:translate(110px, 28px)
+      rotate(0deg);
+  }
+  75%{
+    transform: translate(150px, 30px)
+      rotate(-40deg);
+  }
+  100%{
+    transform: translate(290px, 0px)
+      rotate(-60deg);
+  }
+}
+
+
+/*   @keyframes ho{
+    0%{
+      transform:translate(10px -50px)
+                rotate(60deg);
+    }
+    30%{
+      transform:translate(20px -60px)
+        rotate(75deg);
+    }
+    50%{
+      transform:translate(20px -70px)
+        rotate(90deg);
+    }
+    80%{
+      transform:translate(30px 60px)
+        rotate(105deg);
+    }
+    100%{
+       transform:translate(30px 50px)
+        rotate(120deg);
+    }
+  } */
