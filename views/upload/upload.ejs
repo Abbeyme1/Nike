@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>Upload Shoes</title>
+    </head>
+
+    <body>
+        <h1>Upload Shoes Here</h1>
+
+        <div>
+
+            <form action="/upload/maleShoe" method="POST" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>
+                        <label >Name for male Shoe</label>
+                    </td>
+                    <td>
+                        <input type="text" name="shoeName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label >Price for male Shoe</label>
+                    </td>
+                    <td>
+                        <input type="text" name="price">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label >ProductId for male Shoe</label></td>
+                    <td><input type="text" name="ProductId">
+                    </td>
+                </tr>
+                <tr>
+                    <td> <label for="male">upload male shoe</label></td>
+                    <td><input type="file" name="Shoeimage">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <button type="submit">Submit Male Shoe</button>
+                    </td>
+                    
+                </tr>
+            </table>
+            </form>
+
+
+            <form action="/upload/FemaleShoe" method="POST" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td>
+                            <label >Name for Female Shoe</label>
+                        </td>
+                        <td>
+                            <input type="text" name="shoeName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label >Price for Female Shoe</label>
+                        </td>
+                        <td>
+                            <input type="text" name="price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label >ProductId for Female Shoe</label></td>
+                        <td><input type="text" name="ProductId">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <label for="male">upload Female shoe</label></td>
+                        <td><input type="file" name="Shoeimage">
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td>
+                            <button type="submit">Submit Female Shoe</button>
+                        </td>
+                    </tr>
+                </table>
+                </form>
+
+            
+        </div>
+    </body>
+</html>

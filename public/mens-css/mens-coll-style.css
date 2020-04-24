@@ -20,24 +20,24 @@ body{
 }
 
 .full{
-	display: flex;
-	flex-direction: row;
+	/* display: flex; */
+	/* flex-direction: row; */
 }
 .lane1{
 /*	text-align: center;*/
 	height: 100vh;
 /*	background-color: red;*/
-	width: 26%;
-	margin-left: 26%;
-	display: flex;
-	flex-direction:column;
+	/* width: 26%; */
+	/* margin-left: 26%; */
+	/* display: flex; */
+	/* flex-direction:column; */
 	
 	
 }
 .lane2{
 	padding: 0;
 	height: 100vh;
-	width: 25%;
+	/* width: 25%; */
 /*	background-color: yellow;*/
 	margin-right: 25%;
 	margin-left: 2%;
@@ -49,9 +49,6 @@ body{
 
 
 /*.........................*/
-.items{
-	
-}
 
 h3{
 	font-family:inherit;
@@ -98,14 +95,15 @@ h3{
 
 /*...........pic............*/
 .pic{
-	margin: 0 0 0 20%;
+	margin: 0 20% 0 20%;
+	
 	margin-bottom: 5rem;
 }
-.lane1 .pic{
+/* .lane1 .pic{
 	margin: 0 0 5rem 10%;
 	margin: 0 0 0 20%;
-/*	margin: 0 0 0 10%;*/
-}
+/*	margin: 0 0 0 10%; }*/
+
 .pic img{
 /*	height: 320px;*/
 	height: 55rem;
@@ -125,8 +123,8 @@ h3{
 }
 .p-price{
 	font-size: 3.5rem;
-/*	align-content: flex-start;*/
-	text-align: left;
+	align-content: flex-start;
+	/* text-align: left; */
 	margin-left:8%;
 /*	transform: translateX(100px)*/
 /*		translateY(-58px);*/
@@ -154,19 +152,17 @@ h3{
 
 /*,,,,,,,,,,,,,,,,,,*/
 
-.item{
+/* .item{
 	margin-top:10%;
-	
-}
-.item img{
-	
-}
-.lane1 .pic{
-	margin-bottom: 7%;
+	 */
 }
 
+/* .lane1 .pic{
+	margin-bottom: 7%;
+} */
+
 /*,,,,,,,,,,,,,,,,,,,,,,,,,,,,*/
-.pic{
+/* .pic{
 	
 	border: 50px solid black;
 	border-radius: 10%;
@@ -174,23 +170,18 @@ h3{
 	align-items: center;
 	text-align: center;
 	padding:0 5px;
-}
+} */
 
 img{
 	padding: 30px 2px;
 }
 /*div colors*/
 
-.div1{
-	border: 30px solid rgba(15, 181, 218, 1);
-}
+
 .div2
 {
-	border: 30px solid rgba(177, 218, 15, 1);
+	border: 10px solid rgba(177, 218, 15, 1);
 }
-.div3{
-	border: 30px solid rgba(252, 130, 255, 1);
-}
-.div4{
-	border: 30px solid rgba(255, 224, 165, 1);
-}
+
+
+  
