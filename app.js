@@ -1,22 +1,8 @@
-const express = require('express');
+const express = require('express')
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
-// const _ = require("lodash");
 var multer  = require('multer');
 const path = require('path');
-
-
-var Storage = multer.diskStorage({
-    destination: "./public/uploads/",
-    filename:function(req,file,cb){
-        cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
-    }
-});
-
-var upload = multer({
-    storage:Storage
-}).single('Shoeimage');
-
 
 const app = express();
 app.set('view engine','ejs');
@@ -24,7 +10,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.set('views', __dirname + "/views/");
-
 
 mongoose.connect("mongodb://localhost:27017/shoeDB",{useUnifiedTopology: true, useNewUrlParser: true});
 
@@ -52,7 +37,8 @@ const Nike1 = new MaleShoe( {
 
     name : "Airmax",
     price : 50,
-    productID : "m1"
+    productID : "m1",
+    image: "https://static.nike.com/a/images/f_auto,b_rgb:f5f5f5,w_440/c1ee6824-3c01-4c5a-95fe-6f2903566cd8/air-max-koko-sandal-ktWc9N.jpg"
 });
 
 const Nike2 = new MaleShoe( {
@@ -62,12 +48,12 @@ const Nike2 = new MaleShoe( {
     productID : "m2"
 });
 
-const Nike3 = new MaleShoe({
+// const Nike3 = new MaleShoe({
 
-    name : "Disruptors",
-    price : 80,
-    productID : "m3"
-});
+//     name : "Disruptors",
+//     price : 80,
+//     productID : "m3"
+// });
 
 
 const Nike4 = new FemaleShoe({
@@ -77,7 +63,7 @@ const Nike4 = new FemaleShoe({
 
 })
 
-const MaleShoesList = [Nike1 , Nike2 , Nike3];
+const MaleShoesList = [Nike2];
 const FemaleShoesList = [ Nike4 ];
 
 app.get("/",function(req,res){
@@ -107,7 +93,7 @@ app.get("/mens-collection",function(req,res){
             res.render('collections/mens-collection',{mensCollection: foundItems});
         }
     })
-    
+
 })
 
 app.get("/women-collection",function(req,res){
@@ -138,10 +124,6 @@ app.get("/register",function(req,res){
     res.render('login/loginPage');
 })
 
-app.get("/login",function(req,res){
-    res.render('login/loginPage');
-})
-
 app.get("/upload",function(req,res){
     res.render('upload/upload');
 })
@@ -153,37 +135,21 @@ app.post("/upload/:shoe",function(req,res)
     const shoeName = req.body.shoeName;
     const shoePrice = req.body.price;
     const shoeProductID = req.body.productID;
+    const shoeImg = req.body.Shoeimage;
+
+    console.log(shoeImg);
     
-
-
-    console.log(shoeName);
-    console.log(shoePrice);
-    console.log(shoeProductID);
-
-    console.log(shoe);
-
-
     if(shoe === 'maleShoe')
     {
-        upload(req,res,(err) => {
-            if(err)
-            {
-                console.log("error uploading file");
-            }
-            else {
                 console.log(req.file);
-
-                const Pimage = req.file.Shoeimage;
                 const shoe = new MaleShoe({
                     name: shoeName,
                     price: shoePrice,
                     productID: shoeProductID,
-                    image: Pimage 
+                    image: shoeImg
                 });
                 shoe.save();
-                
-            }
-        })
+
         res.redirect("/mens-collection");
     }
     else if(shoe === 'FemaleShoe')
@@ -191,17 +157,22 @@ app.post("/upload/:shoe",function(req,res)
         const shoe = new FemaleShoe({
             name: shoeName,
             price: shoePrice,
-            productID: shoeProductID
+            productID: shoeProductID,
+            image: shoeImg
+
         });
         shoe.save();
-    
+
         res.redirect("/women-collection");
     }
-    
+
 })
 
 
+// app.get("/kids-collection",function(req,res){
+//     res.render('collections/kids-collection');
+// })
 
 app.listen(3000,function(){
-    console.log("server starting");
+    console.log("starting server");
 })
