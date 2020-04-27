@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 var multer  = require('multer');
 const path = require('path');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const app = express();
 app.set('view engine','ejs');
@@ -30,8 +32,15 @@ const shoeSchema = mongoose.Schema({
     image : String
 })
 
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String
+})
+
 const MaleShoe = mongoose.model("MaleShoe",shoeSchema);
 const FemaleShoe = mongoose.model("FemaleShoe",shoeSchema);
+const User = mongoose.model("user",userSchema);
 
 const Nike1 = new MaleShoe( {
 
@@ -124,6 +133,11 @@ app.get("/register",function(req,res){
     res.render('login/loginPage');
 })
 
+app.get("/login",function(req,res){
+    res.render('login/loginPage');
+})
+
+
 app.get("/upload",function(req,res){
     res.render('upload/upload');
 })
@@ -168,6 +182,50 @@ app.post("/upload/:shoe",function(req,res)
 
 })
 
+
+app.post("/register",function(req,res)
+{
+
+    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+        const newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hash
+        })
+        newUser.save(function(err)
+        {
+            if(err)
+            {
+                console.log(err);
+            }
+            else{
+                res.redirect("/");
+            }
+        });
+    });
+    
+})
+
+app.post("/login",function(req,res)
+{
+    const email = req.body.email;
+    const pass = req.body.password;
+    User.findOne({email: email},function(err,foundUser)
+    {
+        if(!err)
+        {
+            if(foundUser)
+            {
+                bcrypt.compare(pass, foundUser.password, function(err, result) {
+                    if(result === true)
+                    {
+                        res.redirect("/");
+                    }
+                });
+            }
+        }
+    })
+})
 
 // app.get("/kids-collection",function(req,res){
 //     res.render('collections/kids-collection');
