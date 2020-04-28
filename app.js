@@ -5,6 +5,10 @@ const multer  = require('multer');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
+const FacebookStrategy = require("passport-facebook");
+const GitHubStrategy = require("passport-github2");
+
 require('dotenv').config()
 
 
@@ -71,9 +75,12 @@ passport.serializeUser(function(user, done) {
     });
   });
 
+
+  //-------------------------GOOOOGLEEEE----------------
+
 passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/nike",
     userProfileURL: "https://www/googleapis.com/oauth2/v3/userinfo"
   },
@@ -85,6 +92,45 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
+
+// --------------------------------------------------------
+
+
+
+//----------------------FACEBOOKKK-----------------------------
+
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/nike"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+// --------------------------------------------------------------------
+
+
+// -------------------------GITHUB--------------------------
+
+passport.use(new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/github/nike"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+// ----------------------------------------------------------
+
+
 const Nike1 = new MaleShoe( {
 
     name : "Airmax",
@@ -180,6 +226,9 @@ app.get("/login",function(req,res){
     res.render('login/loginPage');
 })
 
+
+
+// --------GOOGLE------------
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] 
 }));
@@ -190,6 +239,41 @@ app.get('/auth/google/nike',
     // Successful authentication, redirect home.
     res.redirect('/');
   });
+
+//--------------------------------------
+
+
+//-----------FACEBOOK----------------------
+
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/nike',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
+
+//   ------------------------------------------------
+
+
+
+//================GITHUB=========================
+
+app.get('/auth/github',
+  passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+app.get('/auth/github/nike', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
+
+//  =================================================
 
 
 app.get("/upload",function(req,res){
@@ -288,3 +372,9 @@ app.post("/login",function(req,res)
 app.listen(3000,function(){
     console.log("starting server");
 })
+
+
+
+
+
+
