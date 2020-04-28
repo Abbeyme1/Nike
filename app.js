@@ -1,10 +1,19 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
-var multer  = require('multer');
+const multer  = require('multer');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+require('dotenv').config()
+
+
+const session = require('express-session');
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require('mongoose-findorcreate');
+
 
 const app = express();
 app.set('view engine','ejs');
@@ -13,7 +22,11 @@ app.use(express.static("public"));
 
 app.set('views', __dirname + "/views/");
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 mongoose.connect("mongodb://localhost:27017/shoeDB",{useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.set('useCreateIndex', true);
 
 const shoeSchema = mongoose.Schema({
     name: {
@@ -38,10 +51,40 @@ const userSchema = new mongoose.Schema({
     password: String
 })
 
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
+
+
 const MaleShoe = mongoose.model("MaleShoe",shoeSchema);
 const FemaleShoe = mongoose.model("FemaleShoe",shoeSchema);
 const User = mongoose.model("user",userSchema);
 
+passport.use(User.createStrategy());
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/nike",
+    userProfileURL: "https://www/googleapis.com/oauth2/v3/userinfo"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+
+    console.log(profile);
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
 const Nike1 = new MaleShoe( {
 
     name : "Airmax",
@@ -136,6 +179,17 @@ app.get("/register",function(req,res){
 app.get("/login",function(req,res){
     res.render('login/loginPage');
 })
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] 
+}));
+
+app.get('/auth/google/nike', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 
 app.get("/upload",function(req,res){
