@@ -325,21 +325,34 @@ app.post("/register",function(req,res)
 {
 
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-        const newUser = new User({
-            name: req.body.name,
-            email: req.body.email,
-            password: hash
-        })
-        newUser.save(function(err)
+
+        User.findOne({email: req.body.email}, function(err,foundUser)
         {
-            if(err)
+            if(foundUser)
             {
-                console.log(err);
+                console.log("already exists");
+                res.redirect("/login");
             }
             else{
-                res.redirect("/");
+                const newUser = new User({
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: hash
+                })
+                newUser.save(function(err)
+                {
+                    if(err)
+                    {
+                        console.log(err);
+                    }
+                    else{
+                        res.redirect("/");
+                    }
+                });
+
             }
-        });
+        })
+        
     });
     
 })
